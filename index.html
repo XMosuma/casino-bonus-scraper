@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Casino welcome bonuses</title>
+<style>
+  :root { color-scheme: light dark; font-family: system-ui, sans-serif; }
+  body { margin: 0 auto; max-width: 900px; padding: 1rem; line-height: 1.4; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { text-align: left; padding: .6rem; border-bottom: 1px solid #8884; }
+  .updated { opacity: .7; font-size: .9rem; }
+  @media (max-width: 600px) {
+    thead { display: none; }
+    tr { display: block; margin-bottom: 1rem; border: 1px solid #8884; border-radius: 8px; }
+    td { display: flex; justify-content: space-between; gap: 1rem; border: 0; }
+    td::before { content: attr(data-label); font-weight: 600; }
+  }
+</style>
+</head>
+<body>
+<h1>Casino welcome bonuses</h1>
+<p class="updated" id="updated"></p>
+<table>
+  <thead><tr><th>Casino</th><th>Welcome bonus</th><th>Wagering (x)</th><th>Min. deposit</th><th>Source</th></tr></thead>
+  <tbody id="rows"></tbody>
+</table>
+<p id="error" hidden></p>
+<script>
+const labels = ["Casino", "Welcome bonus", "Wagering (x)", "Min. deposit", "Source"];
+fetch("bonuses.json")
+  .then(r => { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+  .then(d => {
+    document.getElementById("updated").textContent = "Updated " + d.generated_at;
+    const rows = document.getElementById("rows");
+    d.casinos.forEach(c => {
+      const tr = document.createElement("tr");
+      [c.casino, c.welcome_bonus, c.wagering_multiplier, c.min_deposit].forEach((v, i) => {
+        const td = document.createElement("td");
+        td.dataset.label = labels[i];
+        td.textContent = v ?? "n/a";
+        tr.appendChild(td);
+      });
+      const td = document.createElement("td");
+      td.dataset.label = labels[4];
+      if (/^https?:\/\//.test(c.source_url)) {
+        const a = document.createElement("a");
+        a.href = c.source_url;
+        a.rel = "noopener";
+        a.textContent = new URL(c.source_url).hostname;
+        td.appendChild(a);
+      }
+      tr.appendChild(td);
+      rows.appendChild(tr);
+    });
+  })
+  .catch(e => {
+    const el = document.getElementById("error");
+    el.hidden = false;
+    el.textContent = "Could not load bonuses.json (" + e.message + ").";
+  });
+</script>
+</body>
+</html>

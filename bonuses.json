@@ -1,0 +1,27 @@
+{
+  "generated_at": "2026-10-16T07:35:42+00:00",
+  "model": "Ollama (llama3.2)",
+  "casinos": [
+    {
+      "casino": "Sunbet",
+      "welcome_bonus": "R1,000",
+      "wagering_multiplier": null,
+      "min_deposit": "R50",
+      "source_url": "https://africasoccer.com/sports-betting/south-africa/sunbet/sunbet-bonus/"
+    },
+    {
+      "casino": "Betway",
+      "welcome_bonus": "100% deposit match up to R1,000",
+      "wagering_multiplier": null,
+      "min_deposit": "R20",
+      "source_url": "https://africasoccer.com/sports-betting/south-africa/betway/betway-register/"
+    },
+    {
+      "casino": "Hollywoodbets",
+      "welcome_bonus": "R25 free bet + 50 free spins",
+      "wagering_multiplier": null,
+      "min_deposit": "R10",
+      "source_url": "https://africasoccer.com/sports-betting/south-africa/hollywoodbets/"
+    }
+  ]
+}
